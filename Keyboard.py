@@ -6,15 +6,15 @@ import time
 
 cd = 0.5
 
-def keyDown(vkcode):
+def down(vkcode):
     api.keybd_event(vkcode, 0, 0, 0)
     time.sleep(cd)
 
-def keyUp(vkcode):
+def up(vkcode):
     api.keybd_event(vkcode, 0, con.KEYEVENTF_KEYUP, 0)
     time.sleep(cd)
 
-def keyPress(vkcode):
+def press(vkcode):
     api.keybd_event(vkcode, 0, 0, 0)
     api.keybd_event(vkcode, 0, con.KEYEVENTF_KEYUP, 0)
     time.sleep(cd)
@@ -58,22 +58,22 @@ def parseInput(input):
         vkcodes.append(vkmap[tk])
     return vkcodes
 
-def keyDownEx(input):
+def downEx(input):
     vkcodes = parseInput(input)
     for code in vkcodes:
-        keyDown(code)
+        down(code)
 
-def keyUpEx(input):
+def upEx(input):
     vkcodes = parseInput(input)
     for code in vkcodes:
-        keyUp(code)
+        up(code)
 
-def keyPressEx(input):
+def pressEx(input):
     vkcodes = parseInput(input)
     for code in vkcodes:
-        keyDown(code)
+        down(code)
     for code in vkcodes:
-        keyUp(code)
+        up(code)
 
 def test():
     pass

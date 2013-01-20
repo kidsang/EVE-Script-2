@@ -39,9 +39,9 @@ def autopilot():
         if finded == 'station':
             print 'docking...'
             mouse.leftClickAtP(result)
-            key.keyPressEx(sc.Activate)
+            key.pressEx(sc.Activate)
             print 'wait until entering station'
-            while not image.findImgR(panel.ProcessBar, 'img/entering_station.bmp'):
+            while not image.findImgR(panel.ProgressBar, 'img/entering_station.bmp'):
                 time.sleep(0.1)
             print 'entering station'
             time.sleep(4)
@@ -51,11 +51,11 @@ def autopilot():
         if finded == 'gate':
             print 'jump...'
             mouse.leftClickAtP(result)
-            key.keyPressEx(sc.Warp)
+            key.pressEx(sc.Warp)
             time.sleep(1)
-            key.keyPressEx(sc.Activate)
+            key.pressEx(sc.Activate)
             print 'wait until entering space'
-            while not image.findImgR(panel.ProcessBar, 'img/entering_space.bmp'):
+            while not image.findImgR(panel.ProgressBar, 'img/entering_space.bmp'):
                 time.sleep(0.1)
             print 'entering space'
             time.sleep(4)
