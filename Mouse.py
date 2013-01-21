@@ -58,6 +58,7 @@ def rightClickAt(x, y):
     api.mouse_event(con.MOUSEEVENTF_ABSOLUTE | con.MOUSEEVENTF_MOVE, absX, absY)
     time.sleep(innercd)
     api.mouse_event(con.MOUSEEVENTF_RIGHTDOWN | con.MOUSEEVENTF_RIGHTUP, 0, 0)
+    time.sleep(innercd)
     time.sleep(cd)
 
 def rightClickAtP(point):

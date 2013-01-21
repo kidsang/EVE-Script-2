@@ -6,7 +6,10 @@ import Picture as pic
 import time
 
 def find(source, threshould = 0.5):
-	path = 'img/' + source + '.bmp'
+	path = ''
+	if __name__ != '__main__':
+		path += '../'
+	path += 'img/' + source + '.bmp'
 	result = pic.findImgR(panel.Drones, path, threshould)
 	if not result:
 		print 'can not find "' + source + '"!'

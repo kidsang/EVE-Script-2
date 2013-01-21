@@ -15,6 +15,8 @@ DronesReturn = 'shift+r'
 
 # window
 Map = 'f10'
+Inventory = 'alt+c'
+ShipHangar = 'alt+n'
 
 # moodules
 LowSlot1 = 'ctrl+f1'

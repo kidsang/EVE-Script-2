@@ -1,10 +1,11 @@
 import time
 import Keyboard as key
 import Mouse as mouse
-import Picture as image
+import Picture as pic
 import Panel as panel
 import Shortcut as sc
 import random
+from Finder import *
 
 def autopilot():
     print '--> autopilot'
@@ -16,12 +17,12 @@ def autopilot():
         for retry in range(7):
             mouse.moveToP(panel.center(panel.Full))
             print 'try: ' + str(retry + 1)
-            result = image.findImgR(panel.Overview, 'img/target_station.bmp', 0.2)
+            result = find(panel.Overview, 'target_station', 0.2)
             if result:
                 print 'station finded'
                 finded = 'station'
                 break
-            result = image.findImgR(panel.Overview, 'img/target_star_gate.bmp', 0.2)
+            result = find(panel.Overview, 'target_star_gate', 0.2)
             if result:
                 print 'stargate finded'
                 finded = 'gate'
@@ -41,7 +42,7 @@ def autopilot():
             mouse.leftClickAtP(result)
             key.pressEx(sc.Activate)
             print 'wait until entering station'
-            while not image.findImgR(panel.ProgressBar, 'img/entering_station.bmp'):
+            while not find(panel.ProgressBar, 'entering_station', 0.1):
                 time.sleep(0.1)
             print 'entering station'
             time.sleep(4)
@@ -55,7 +56,7 @@ def autopilot():
             time.sleep(1)
             key.pressEx(sc.Activate)
             print 'wait until entering space'
-            while not image.findImgR(panel.ProgressBar, 'img/entering_space.bmp'):
+            while not find(panel.ProgressBar, 'entering_space', 0.1):
                 time.sleep(0.1)
             print 'entering space'
             time.sleep(4)
@@ -64,3 +65,4 @@ def autopilot():
 if __name__ == '__main__':
     # mouse.leftClickAtP(panel.center(panel.Full))
     autopilot()
+    pass
