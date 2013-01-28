@@ -53,6 +53,10 @@ def findColor(left, top, right, bottom, colstr):
 def findColorR(rect, colstr):
     return findColor(rect[0], rect[1], rect[2], rect[3], colstr)
 
+def colorAt(x, y):
+    img = ImageGrab.grab()
+    return img.getpixel((x, y))
+
 def extractText(left, top, right, bottom, scale = 2):
     im = capture(left, top, right, bottom)
     im = im.resize([scale * i for i in im.size])
@@ -62,7 +66,7 @@ def extractTextR(rect, scale = 2):
     return extractText(rect[0], rect[1], rect[2], rect[3], scale)
 
 def test():
-    print findColor(0, 0, 500, 500, 'c11313')
+    # print colorAt(200, 100)
     pass
 
 if __name__ == '__main__':

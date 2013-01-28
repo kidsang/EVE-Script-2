@@ -4,15 +4,35 @@ import Keyboard as key
 import Shortcut as sc
 import Picture as pic
 import General as general
+import Ship as ship
 import time
 import random
 from Finder import *
 
-def findTarget(target):
+def switchTo(name):
+	print '--> switch overview setting to ' + name
+
+	result = findAtOverview('overview')
+	if not result:
+		return False
+	mouse.leftClickAtP(result)
+	mouse.moveTo(result[0] - 400, result[1])
+	time.sleep(0.5)
+
+	result = findAtOverview(name)
+	if not result:
+		return False
+	mouse.leftClickAtP(result)
+	time.sleep(0.5)
+
+	print '<-- switch overview setting to ' + name + '\n'
+	return True
+
+
+def findTarget(target, threashould = 0.1):
 	print '--> find target "' + target + '"'
 	count = 0
-	result = None
-	result = findAtOverview(target)
+	result = findAtOverview(target, threashould)
 	while result == None and count < 10:
 		if result:
 			break
@@ -43,9 +63,50 @@ def lockTarget(target, wait = 5):
 
 	mouse.leftClickAtP(result)
 	key.pressEx(sc.Lock)
+	print 'wait for ' + str(wait) + ' seconds'
 	time.sleep(wait)
 
 	print '<-- lock target "' + target + '"\n'
+	return True
+
+def findEnemy():
+	print '--> find enemy'
+	count = 0
+	result = pic.findColorR(panel.Overview, 'c11313')
+	while result == None and count < 10:
+		if result:
+			break
+		x, y = panel.center(panel.Overview)
+		y += random.random() * 200 - 100
+		mouse.leftClickAt(x, y)
+		if count < 5:
+			mouse.wheel(-20)
+		else:
+			mouse.wheel(20)
+		count += 1
+		result = pic.findColorR(panel.Overview, 'c11313')
+
+	if not result:
+		print 'can not find enemy.'
+	else:
+		print 'target finded.'
+
+	print '<-- find enemy'
+	return result
+
+def lockEnemy(wait = 5):
+	print '--> lock enemy'
+
+	result = findEnemy()
+	if not result:
+		return False
+
+	mouse.leftClickAtP(result)
+	key.pressEx(sc.Lock)
+	print 'wait for ' + str(wait) + ' seconds'
+	time.sleep(wait)
+
+	print '<-- lock enemy'
 	return True
 
 def activateAccelerationGate():
@@ -103,9 +164,12 @@ def pickWreck():
 
 	print 'wait until cargo open'
 	result = None
-	while not result:
+	begin = time.time()
+	while not result and time.time() - begin < 120:
 		time.sleep(0.2)
 		result = findAtFull('loot_all')
+	if not result:
+		return False
 	mouse.leftClickAtP(result)
 
 	time.sleep(2)
@@ -127,9 +191,12 @@ def pickCargo():
 
 	print 'wait until cargo open'
 	result = None
-	while not result:
+	begin = time.time()
+	while not result and time.time() - begin < 240:
 		time.sleep(0.2)
 		result = findAtFull('loot_all')
+	if not result:
+		return False
 	mouse.leftClickAtP(result)
 
 	time.sleep(2)
@@ -141,7 +208,21 @@ def pickCargo():
 	print '<-- picking cargo\n'
 	return True
 
+def seekAndDestory():
+	print '--> seek and destory'
+	while not findAtMissionDetails('v') and lockEnemy():
+		time.sleep(5)
+		ship.approach()
+		ship.fireOnce()
+		time.sleep(15)
+		mouse.moveTo(200, 200)
+	print '<-- seek and destory\n'
+	return True
+
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	activateAccelerationGate()
+	lockTarget('s')
+	# pickCargo()
+
+	# switchOverview('lco')
 	pass

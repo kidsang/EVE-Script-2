@@ -4,11 +4,14 @@ import Mouse as mouse
 import Picture as pic
 import Panel as panel
 import Shortcut as sc
+import Overview as overview
 import random
 from Finder import *
 
 def autopilot():
     print '--> autopilot'
+
+    overview.switchTo('pilot')
 
     while True:
         print 'try to find target stargate or station'
@@ -63,6 +66,6 @@ def autopilot():
 
 
 if __name__ == '__main__':
-    # mouse.leftClickAtP(panel.center(panel.Full))
+    mouse.leftClickAtP(panel.center(panel.Full))
     autopilot()
     pass

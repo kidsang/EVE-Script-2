@@ -13,6 +13,8 @@ def find(rect, source, threshould):
 	result = pic.findImgR(rect, f, threshould)
 	if not result:
 		print 'can not find "' + source + '"!'
+	else:
+		print '"' + source + '" finded!'
 	return result
 
 
@@ -27,7 +29,7 @@ def findAtInfo(source, threshould = 0.1):
 	return find(panel.Info, source, threshould)
 
 def findAtDrones(source, threshould = 0.1):
-	return find(panel.Dornes, source, threshould)
+	return find(panel.Drones, source, threshould)
 
 def findAtMissionDetails(source, threshould = 0.1):
 	return find(panel.MissionDetails, source, threshould)
@@ -62,7 +64,7 @@ def findAtMissionLeft(source, threshould = 0.5):
 def findAtMissionRight(source, threshould = 0.5):
 	return find(panel.MissionRight, source, threshould)
 
-def findAtInventory(source, threshould = 0.5):
+def findAtInventory(source, threshould = 0.1):
 	return find(panel.Inventory, source, threshould)
 
 
