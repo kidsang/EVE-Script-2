@@ -44,7 +44,7 @@ def run():
 
 	# back to pocket 0
 	# double click will not open it!
-	result = findTarget('cargo')
+	result = overview.findTarget('cargo')
 	if not result:
 		return False
 	mouse.leftClickAtP(result)
@@ -57,20 +57,41 @@ def run():
 			return False
 	mouse.leftClickAtP(result)
 
-	# print 'wait until cargo open'
-	# result = None
-	# while not findAtFull('loot_all'):
-	# 	time.sleep(0.2)
+	print 'wait until cargo open'
+	while not findAtFull('loot_all'):
+		time.sleep(0.2)
+
 	# result = findAtFull('x')
 	# if not result:
 	# 	return False
 	# mouse.leftClickAtP(result)
+
+	result = findAtFull('ship')
+	if result:
+		mouse.leftClickAtP(result)
+
+	time.sleep(2)
+	result = findAtFull('minmatar_emissary')
+	if result:
+		mouse.leftDownAtP(result)
+
+	return False
+	result = findAtFull('')
+	if result:
+		mouse.moveToP(result)
+	mouse.leftUp()
+	time.sleep(1)
+
+	result = findAtFull('x')
+	if result:
+		mouse.leftClickAtP(result)
 
 	time.sleep(1)
 	mouse.moveTo(200, 200)
 	result = findAtFull('close')
 	if result:
 		mouse.leftClickAtP(result)
+
 
 	# key.pressEx(sc.Inventory)
 

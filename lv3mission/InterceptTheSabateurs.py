@@ -20,10 +20,10 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
+	if not drones.launchSmall():
 		return False
 
-	if not drones.launchSmall():
+	if not overview.switchTo('battle'):
 		return False
 
 	overview.seekAndDestory()
@@ -35,6 +35,31 @@ def run():
 
 	if not overview.activateAccelerationGate():
 		return False
+
+	# pocket 1
+
+	drones.launchSmall()
+
+	if not overview.lockTarget('transport', 1):
+		return False
+
+	ship.enableAfterburn()
+
+	ship.approachFor(240)
+
+	general.openMissionDetails()
+
+	if not overview.lockTarget('transport', 15):
+		return False
+
+	seekAndDestory()
+
+	while not overview.pickCargo():
+		pass
+
+	general.missionObjectiveComplete()
+
+	drones.back()
 
 	print '<-- mission Intercept The Sabateurs\n'
 	return True
