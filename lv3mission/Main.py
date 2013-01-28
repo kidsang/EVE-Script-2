@@ -32,7 +32,7 @@ import DuoOfDeath as duo_of_death
 import TheScore as the_score
 import TheBlackMarketHub as the_black_market_hub
 import UnauthorizedMilitaryPresence as unauthorized_military_presence
-
+import InterceptTheSabateurs as intercept_the_sabateurs
 
 agent = 'img/agent.bmp'
 
@@ -59,6 +59,7 @@ battle = {
 			'The Snare':the_score, 
 			'The Blank Market Hub':the_black_market_hub,
 			'Unauthorized Militarg Presence':unauthorized_military_presence,
+			'Intercept The Sabateurs':intercept_the_sabateurs,
 		}
 
 transport = {
