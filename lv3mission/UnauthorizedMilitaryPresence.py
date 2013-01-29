@@ -17,16 +17,16 @@ from Finder import *
 def run():
 	print '--> mission Unauthorized Military Presence'
 
-	# if not ship.enableDefense():
-	# 	return False
+	if not ship.enableDefense():
+		return False
 
-	# if not overview.switchTo('battle'):
-	# 	return False
+	if not overview.switchTo('battle'):
+		return False
 
-	# ship.enableAfterburn()
+	ship.enableAfterburn()
 
-	# if not overview.activateAccelerationGate():
-	# 	return False
+	if not overview.activateAccelerationGate():
+		return False
 
 	if not general.openMissionDetails():
 		return False
@@ -65,7 +65,3 @@ def run():
 
 	print '<-- mission Unauthorized Military Presence\n'
 	return True
-
-if __name__ == '__main__':
-	mouse.leftClickAtP(panel.center(panel.Full))
-	run()

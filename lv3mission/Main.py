@@ -33,6 +33,10 @@ import TheScore as the_score
 import TheBlackMarketHub as the_black_market_hub
 import UnauthorizedMilitaryPresence as unauthorized_military_presence
 import InterceptTheSabateurs as intercept_the_sabateurs
+import CargoDeliver as cargo_deliver
+import TheRogueSlaveTrader1 as the_rogue_slave_trade_1
+import DowningTheSlavers2 as downing_the_slavers_2
+import AngelExtravaganza as angel_extravaganza
 
 agent = 'img/agent.bmp'
 
@@ -60,6 +64,10 @@ battle = {
 			'The Blank Market Hub':the_black_market_hub,
 			'Unauthorized Militarg Presence':unauthorized_military_presence,
 			'Intercept The Sabateurs':intercept_the_sabateurs,
+			'Cargo Deliverg':cargo_deliver,
+			'The Rogue Slave Trader (1 of 2)':the_rogue_slave_trade_1,
+			'Dawning The Slavers (2 of 2)':downing_the_slavers_2,
+			'Angel Extravaganza':angel_extravaganza,
 		}
 
 transport = {
@@ -107,7 +115,7 @@ def run():
 
 def runBattle(mission):
 	bot = battle[mission]
-	# bot = technological_secrets_3
+	# bot = the_damsel_in_distress
 
 	if bot == pick_your_position:
 		if not station.activateShip('shuttle'):
@@ -155,6 +163,5 @@ if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
 	run()
 	# runBattle('')
-	# overview.activateAccelerationGate()
 
 
