@@ -208,6 +208,33 @@ def pickCargo():
 	print '<-- picking cargo\n'
 	return True
 
+def pickTargetWreck(target):
+	print '--> picking wreck'
+
+	result = findTarget(target)
+	if not result:
+		return False
+	mouse.doubleClickAtP(result)
+
+	print 'wait until cargo open'
+	result = None
+	begin = time.time()
+	while not result and time.time() - begin < 120:
+		time.sleep(0.2)
+		result = findAtFull('loot_all')
+	if not result:
+		return False
+	mouse.leftClickAtP(result)
+
+	time.sleep(2)
+	result = findAtFull('x')
+	if not result:
+		return False
+	mouse.leftClickAtP(result)
+
+	print '<-- picking wreck\n'
+	return True
+
 def seekAndDestory():
 	print '--> seek and destory'
 	while not findAtMissionDetails('v') and lockEnemy():

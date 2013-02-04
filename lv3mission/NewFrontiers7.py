@@ -15,51 +15,39 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission Angel Extravaganza'
+	print '--> mission New Frontiers - Raw Materials (7 of 7)'
 
 	if not ship.enableDefense():
+		return False
+
+	if not general.openMissionDetails():
 		return False
 
 	if not overview.switchTo('battle'):
 		return False
 
-	if not general.openMissionDetails():
-		return False
-
-	# 5 pockets
-	for i in range(4):
-
-		if not overview.activateAccelerationGate():
-			return False
-
-		print 'pocket ' + str(i+1)
-
-		if not drones.launchSmall():
-			return False
-
-		ship.enableAfterburn()	
-
-		overview.seekAndDestory()
-
-		if not drones.back():
-			return False
-
+	ship.enableAfterburn()
 
 	if not overview.activateAccelerationGate():
 		return False
 
+	print 'pocket 1'
+
 	if not drones.launchSmall():
 		return False
 
-	ship.enableAfterburn()	
-
 	overview.seekAndDestory()
 
-	if not general.openMissionDetails():
+	if not general.missionObjectiveComplete():
 		return False
-		
+
 	if not drones.back():
 		return False
 
-	print '<-- mission Angel Extravaganza\n'
+
+	print '<-- mission New Frontiers - Raw Materials (7 of 7)\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

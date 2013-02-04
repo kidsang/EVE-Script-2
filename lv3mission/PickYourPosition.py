@@ -60,11 +60,8 @@ def run():
 	print 'wait until cargo open'
 	while not findAtFull('loot_all'):
 		time.sleep(0.2)
+		mouse.leftClickAtP(result)
 
-	# result = findAtFull('x')
-	# if not result:
-	# 	return False
-	# mouse.leftClickAtP(result)
 
 	result = findAtFull('ship')
 	if result:
@@ -76,7 +73,7 @@ def run():
 		mouse.leftDownAtP(result)
 
 	return False
-	result = findAtFull('')
+	result = findAtFull('sisters')
 	if result:
 		mouse.moveToP(result)
 	mouse.leftUp()
@@ -91,9 +88,6 @@ def run():
 	result = findAtFull('close')
 	if result:
 		mouse.leftClickAtP(result)
-
-
-	# key.pressEx(sc.Inventory)
 
 	print '<-- mission Pick Your Position\n'
 	return True

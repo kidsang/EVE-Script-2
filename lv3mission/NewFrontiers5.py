@@ -15,57 +15,45 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission Eliminate the Pirate Campers'
+	print '--> mission New Frontiers - Raw Materials (5 of 7)'
 
-	ship.enableDefense()
+	if not ship.enableDefense():
+		return False
 
-	if not ship.launchSentry():
+	if not drones.launchSentry():
 		return False
 
 	if not overview.switchTo('battle'):
 		return False
 
-	# kill small
+	if not overview.lockTarget('drone_energy', 25):
+		return False
 
-	count = 0
-	while count < 4:
-		result = overview.lockTarget('s', 1)
-		if result:
-			count += 1
+	drones.engage()
 
-	begin = time.time()
-	while time.time() - begin < 120:
-		if findAtDrones('idle'):
-			drones.engage()
-		result = findAtFull('close')
-		if result:
-			mouse.leftClickAtP(result)
+	time.sleep(160)
 
 	if not drones.back():
 		return False
 
+	mouse.moveTo(100, 100)
+
 	result = findAtDrones('sentry')
 	if result:
 		mouse.leftClickAtP(result)
-
-	# seek and destory
-
-	if not general.openMissionDetails():
-		return False
-
-	ship.enableAfterburn()
 
 	if not drones.launchSmall():
 		return False
 
 	overview.seekAndDestory()
 
+	ship.enableAfterburn()
 
-	if not general.missionObjectiveComplete():
-		return False
+	while not overview.pickCargo():
+		pass
 
 	if not drones.back():
 		return False
 
-	print '<-- mission Eliminate the Pirate Campers\n'
+	print '<-- mission New Frontiers - Raw Materials (5 of 7)\n'
 	return True

@@ -212,6 +212,37 @@ def acceptMission():
 	print '<-- accept mission\n'
 	return True
 
+def declineMission():
+    print '--> decline mission'
+
+    result = findAtMissionRight('decline')
+    if not result:
+    	return False
+    mouse.leftClickAtP(result)
+
+    begin = time.time()
+    result = None
+    while not result and time.time() - begin < 5:
+    	time.sleep(0.5)
+    	result = findAtFull('yes')
+    if result:
+    	mouse.leftClickAtP(result)
+
+    print 'wait until decline'
+    while not findAtMission('request_mission'):
+        time.sleep(0.5)
+    mouse.moveToP(panel.center(panel.MissionLeft))
+
+    result = None
+    while not result:
+    	time.sleep(0.5)
+    	result = findAtFull('x')
+    mouse.leftClickAtP(result)
+    time.sleep(1)
+
+    print '<-- decline mission\n'
+    return True
+
 def completeMission():
 	print '--> complete mission\n'
 

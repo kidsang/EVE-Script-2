@@ -48,6 +48,13 @@ def fireOnce():
 	print '<-- establishing hatred\n'
 	return True
 
+def mine():
+	print '--> mine'
+	key.pressEx(sc.HeightSlot2)
+	key.pressEx(sc.HeightSlot3)
+	print '<-- mine\n'
+	return True
+
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))

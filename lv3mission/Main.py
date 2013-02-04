@@ -8,6 +8,7 @@ import Pilot as pilot
 import Station as station
 import General as general
 import Overview as overview
+from Finder import *
 
 import TheSpyStash as the_spy_stash
 import EliminateThePirateCampers as eliminate_the_pirate_campers
@@ -37,14 +38,25 @@ import CargoDeliver as cargo_deliver
 import TheRogueSlaveTrader1 as the_rogue_slave_trade_1
 import DowningTheSlavers2 as downing_the_slavers_2
 import AngelExtravaganza as angel_extravaganza
+import SilenceTheInformat as silence_the_informat
+import NewFrontiers1 as new_frontiers_1
+import NewFrontiers2 as new_frontiers_2
+import NewFrontiers3 as new_frontiers_3
+import NewFrontiers4 as new_frontiers_4
+import NewFrontiers5 as new_frontiers_5
+import NewFrontiers6 as new_frontiers_6
+import NewFrontiers7 as new_frontiers_7
+import GoneBerserk as gone_berserk
+import TheMissingConvoy as the_missing_convoy
+import TheSpaceTelescope as the_space_telescope
 
 agent = 'img/agent.bmp'
 
 battle = {
 			'The Spg Stash':the_spy_stash,
-			'Eliminate the Pirate Campers':eliminate_the_pirate_campers,
+			# 'Eliminate the Pirate Campers':eliminate_the_pirate_campers, # rewrite
 			'The Damsel In Distress':the_damsel_in_distress,
-			#'Pink \*nur Poison':pick_your_position,
+			# 'Pink \*nur Poison':pick_your_position,
 			'Pirate Invasion':pirate_invasion,
 			'Deadlg Arrival':deadly_arrival,
 			'Rogue Drone Harassment':rouge_drone_harassment,
@@ -68,11 +80,27 @@ battle = {
 			'The Rogue Slave Trader (1 of 2)':the_rogue_slave_trade_1,
 			'Dawning The Slavers (2 of 2)':downing_the_slavers_2,
 			'Angel Extravaganza':angel_extravaganza,
+			'Silence The Informant':silence_the_informat,
+			'New Frontiers - Raw Materials (1 of 1*]':new_frontiers_1,
+			'New Frontiers - Mad Snientist (2 of 1*)':new_frontiers_2,
+			'New Frontiers - The Unveiling (4 of 1*)':new_frontiers_4,
+			'New Frontiers - An Unexpected Twist (':new_frontiers_5,
+			# 'New Frontiers - Asnendanne (? of 1*)':new_frontiers_7, #heavy damage
+			'Gone Berserk':gone_berserk,
+			'The Missing Canvog':the_missing_convoy,
+			'The Spate Telescope':the_space_telescope,
 		}
 
 transport = {
 				'Tenhnalaginal Secrets (2 of 3)':technological_secrets_2,
+				'New Frontiers - Toward a Solution (3 a':new_frontiers_3,
+				'New Frontiers - Nanite Express (5 of ?':new_frontiers_6,
 			}
+
+skip = [
+		'Lights Out', # gallent standing
+		'The Blnnkade', # will attack drones, heavy damage, heavy shield
+		]
 
 
 def run():
@@ -86,10 +114,16 @@ def run():
 
 		mission = pic.extractTextR(panel.MissionName).strip()
 		missionType = ''
+		print mission
 		if mission in battle:
 			missionType = 'b'
 		elif mission in transport:
 			missionType = 't'
+		elif mission in skip:
+			if not station.declineMission():
+				return False
+			else:
+				continue
 		else:
 			print 'Error: Cant find bot for mission \'' + mission + '\'.'
 			return False
@@ -97,6 +131,12 @@ def run():
 		if not station.acceptMission():
 			print 'Error: Accept mission failed.'
 			return False
+
+		# mouse.moveToP(panel.center(panel.Mission))
+		# result = findAtFull('x')
+		# if not result:
+		# 	return False
+		# mouse.leftClickAtP(result)
 
 		if not general.setMissionWaypoint():
 			print 'Error: Cant set mission waypoint.'
@@ -109,11 +149,8 @@ def run():
 			if not runTransport(mission):
 				return False
 
-		if not station.repair():
-			print 'Error: repair faild'
-			return False
-
 def runBattle(mission):
+	print 'battle mission'
 	bot = battle[mission]
 	# bot = the_damsel_in_distress
 
@@ -145,6 +182,10 @@ def runBattle(mission):
 	if not station.completeMission():
 		return False
 
+	if not station.repair():
+		print 'Error: repair faild'
+		return False
+
 	if bot == pick_your_position:
 		if not station.activateShip('dominix'):
 			return False
@@ -152,6 +193,7 @@ def runBattle(mission):
 	return True
 
 def runTransport(mission):
+	print 'transport mission'
 	bot = transport[mission]
 
 	if not bot.run():

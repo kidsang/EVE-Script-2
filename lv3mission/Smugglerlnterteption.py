@@ -41,9 +41,10 @@ def run():
 		if not drones.back():
 			return False
 
-	# loot every thing
-	while overview.pickWrecK():
-		time.sleep(0.5)
+	# loot grustas personal transport
+	if not overview.pickTargetWreck('guristas_personnel'):
+		return False
+
 
 	print '<-- mission Smuggler lnterteption\n'
 	return True
