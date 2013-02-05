@@ -36,9 +36,16 @@ def _launch(group):
 	time.sleep(5)
 
 	while not findAtDrones('idle') and not findAtDrones('fighting') and not findAtDrones('returning'):
+		mouse.moveToP(panel.center(panel.Drones))
+		mouse.wheel(-100)
+		mouse.moveToP(panel.center(panel.Full))
 		result = findAtDrones('local_space')
 		if result:
 			mouse.leftClickAt(result[0], result[1] + 20)
+
+	mouse.moveToP(panel.center(panel.Drones))
+	mouse.wheel(-100)
+	mouse.moveToP(panel.center(panel.Full))
 
 	return True
 

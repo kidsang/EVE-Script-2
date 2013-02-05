@@ -17,37 +17,36 @@ from Finder import *
 def run():
 	print '--> mission Guristas Extravaganza'
 
-	if not ship.enableDefense():
-		return False
+	# if not ship.enableDefense():
+	# 	return False
 
-	if not overview.switchTo('battle'):
-		return False
+	# if not overview.switchTo('battle'):
+	# 	return False
 
-	# pocket 1 - 3
-	for i in range(3):
+	# # pocket 1 - 3
+	# for i in range(3):
 
-		if not overview.activateAccelerationGate():
-			return False
+	# 	if not overview.activateAccelerationGate():
+	# 		return False
 
-		print 'pocket ' + str(i+1)
+	# 	print 'pocket ' + str(i+1)
 
-		if not drones.launchSmall():
-			return False
+	# 	if not drones.launchSmall():
+	# 		return False
 
-		ship.enableAfterburn()	
+	# 	ship.enableAfterburn()	
 
-		overview.seekAndDestory()
+	# 	overview.seekAndDestory()
 
-		if not drones.back():
-			return False
+	# 	if not drones.back():
+	# 		return False
 
 	# in pocket 3, we must destory the powerfull em force field to continue
 
 	if not overview.switchTo('lcs'):
 		return False
 
-	#TODO:
-	if not overview.lockTarget():
+	if not overview.lockTarget('em_forcefield'):
 		return False
 
 	if not drones.launchSmall():
@@ -87,3 +86,7 @@ def run():
 
 	print '<-- mission Guristas Extravaganza\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

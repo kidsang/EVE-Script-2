@@ -9,6 +9,7 @@ import Station as station
 import General as general
 import Overview as overview
 from Finder import *
+import time
 
 import TheSpyStash as the_spy_stash
 import EliminateThePirateCampers as eliminate_the_pirate_campers
@@ -49,12 +50,14 @@ import NewFrontiers7 as new_frontiers_7
 import GoneBerserk as gone_berserk
 import TheMissingConvoy as the_missing_convoy
 import TheSpaceTelescope as the_space_telescope
+import CutThroatCompetition as cut_throat_competition
+import Retribution as retribution
 
 agent = 'img/agent.bmp'
 
 battle = {
 			'The Spg Stash':the_spy_stash,
-			# 'Eliminate the Pirate Campers':eliminate_the_pirate_campers, # rewrite
+			'Eliminate the Pirate Campers':eliminate_the_pirate_campers,
 			'The Damsel In Distress':the_damsel_in_distress,
 			# 'Pink \*nur Poison':pick_your_position,
 			'Pirate Invasion':pirate_invasion,
@@ -89,6 +92,8 @@ battle = {
 			'Gone Berserk':gone_berserk,
 			'The Missing Canvog':the_missing_convoy,
 			'The Spate Telescope':the_space_telescope,
+			'Cut-Throat Competition':cut_throat_competition,
+			'Retributinn':retribution,
 		}
 
 transport = {
@@ -100,6 +105,9 @@ transport = {
 skip = [
 		'Lights Out', # gallent standing
 		'The Blnnkade', # will attack drones, heavy damage, heavy shield
+		'Illegal Mtivitg (1 of 3)', # gallent stading
+		'The Good Word', # gate seens never unlock
+		'Driving a Wedge - Get the Gallants (1 of', # gallent stading
 		]
 
 
@@ -128,6 +136,8 @@ def run():
 			print 'Error: Cant find bot for mission \'' + mission + '\'.'
 			return False
 
+		record(mission, 'begin')
+
 		if not station.acceptMission():
 			print 'Error: Accept mission failed.'
 			return False
@@ -148,6 +158,8 @@ def run():
 		elif missionType == 't':
 			if not runTransport(mission):
 				return False
+
+		record(mission, 'complete')
 
 def runBattle(mission):
 	print 'battle mission'
@@ -200,6 +212,13 @@ def runTransport(mission):
 		return False
 
 	return True
+
+def record(mission, action):
+	f = open('mission.log', 'a')
+	f.write(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())))
+	f.write('\t\t' + mission + '[' + action + ']' + '\n')
+	f.close()
+
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))

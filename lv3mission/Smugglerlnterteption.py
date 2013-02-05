@@ -42,7 +42,7 @@ def run():
 			return False
 
 	# loot grustas personal transport
-	if not overview.pickTargetWreck('guristas_personnel'):
+	if not overview.pickTarget('guristas_personnel'):
 		return False
 
 

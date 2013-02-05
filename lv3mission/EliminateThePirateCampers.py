@@ -17,9 +17,10 @@ from Finder import *
 def run():
 	print '--> mission Eliminate the Pirate Campers'
 
-	ship.enableDefense()
+	if not ship.enableDefense():
+		return False
 
-	if not ship.launchSentry():
+	if not drones.launchSentry():
 		return False
 
 	if not overview.switchTo('battle'):
@@ -69,3 +70,4 @@ def run():
 
 	print '<-- mission Eliminate the Pirate Campers\n'
 	return True
+

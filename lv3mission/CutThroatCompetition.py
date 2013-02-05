@@ -15,18 +15,15 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission Dawning The Slavers (2 of 2)'
+	print '--> mission '
 
 	if not ship.enableDefense():
 		return False
 
-	result = None
-	while not result:
-		time.sleep(0.5)
-		result = findAtFull('close')
-	mouse.leftClickAtP(result)
-
 	if not drones.launchSmall():
+		return False
+
+	if not general.openMissionDetails():
 		return False
 
 	if not overview.switchTo('battle'):
@@ -35,22 +32,29 @@ def run():
 	overview.seekAndDestory()
 
 	if not drones.back():
-		return False	
+		return False
 
 	if not overview.activateAccelerationGate():
+		return False
+
+	if not overview.switchTo('lcs'):
+		return False
+
+	if not overview.lockTarget('repair_outpost', 15):
 		return False
 
 	if not drones.launchSmall():
 		return False
 
-	overview.seekAndDestory()
+	ship.fireOnce()
+
+	drones.engage()
+
+	if not general.missionObjectiveComplete():
+		return False
 
 	if not drones.back():
-		return False	
+		return False
 
-	print '<-- mission Dawning The Slavers (2 of 2)\n'
+	print '<-- mission \n'
 	return True
-
-if __name__ == '__main__':
-	mouse.leftClickAtP(panel.center(panel.Full))
-	run()

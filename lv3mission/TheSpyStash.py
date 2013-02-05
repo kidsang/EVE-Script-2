@@ -51,12 +51,9 @@ def run():
 
 	print 'wait until cargo open'
 	result = None
-	begin = time.time()
-	while not result and time.time() - begin < 120:
-		time.sleep(0.2)
+	while not result:
+		time.sleep(0.5)
 		result = findAtFull('report')
-	if not result:
-		return False
 	mouse.leftDownAtP(result)
 
 	result = findAtFull('ship', 0.5)

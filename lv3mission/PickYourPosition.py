@@ -30,7 +30,7 @@ def run():
 		result = findAtFull('close')
 	mouse.leftClickAtP(result)
 
-	if not overview.pickCargo():
+	if not overview.pickTarget('minmatar_emissary_1'):
 		return False
 
 	result = None

@@ -208,7 +208,7 @@ def pickCargo():
 	print '<-- picking cargo\n'
 	return True
 
-def pickTargetWreck(target):
+def pickTarget(target):
 	print '--> picking wreck'
 
 	result = findTarget(target)
