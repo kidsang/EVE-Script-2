@@ -44,9 +44,9 @@ def run():
 	# pocket 2
 	overview.lockEnemy(25)
 
-	ship.approachFor(120)
-
 	ship.enableAfterburn()	
+
+	ship.approachFor(120)
 
 	ship.fireOnce()
 
