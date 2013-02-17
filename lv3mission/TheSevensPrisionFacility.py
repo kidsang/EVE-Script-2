@@ -15,7 +15,7 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission Stop The Thief'
+	print '--> mission TheSevensPrisionFacility'
 
 	if not ship.enableDefense():
 		return False
@@ -23,16 +23,12 @@ def run():
 	if not drones.launchSmall():
 		return False
 
-	if not ship.enableAfterburn():
-		return False
+	ship.enableAfterburn()
 
 	overview.seekAndDestory()
 
 	if not drones.back():
 		return False
 
-	if not overview.pickCargo():
-		return False
-
-	print '<-- mission Stop The Thief\n'
+	print '<-- mission TheSevensPrisionFacility\n'
 	return True

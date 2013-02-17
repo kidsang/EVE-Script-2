@@ -15,7 +15,7 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission '
+	print '--> mission Cut Throat Competition'
 
 	if not ship.enableDefense():
 		return False
@@ -24,9 +24,6 @@ def run():
 		return False
 
 	if not general.openMissionDetails():
-		return False
-
-	if not overview.switchTo('battle'):
 		return False
 
 	overview.seekAndDestory()
@@ -56,5 +53,5 @@ def run():
 	if not drones.back():
 		return False
 
-	print '<-- mission \n'
+	print '<-- mission Cut Throat Competition\n'
 	return True

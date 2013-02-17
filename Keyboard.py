@@ -39,6 +39,8 @@ vkmap['down'] = 40
 vkmap['shift'] = 16
 vkmap['ctrl'] = 17
 vkmap['alt'] = 18
+# other
+vkmap['space'] = 32
 
 def parseInput(input):
     '''

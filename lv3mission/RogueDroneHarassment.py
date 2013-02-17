@@ -20,9 +20,6 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	# 2 pockets
 	for i in range(2):
 

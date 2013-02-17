@@ -15,15 +15,12 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission '
+	print '--> mission Success Comes At A Price'
 
 	if not ship.enableDefense():
 		return False
 
 	if not drones.launchSmall():
-		return False
-
-	if not overview.switchTo('battle'):
 		return False
 
 	if not general.openMissionDetails():
@@ -37,5 +34,5 @@ def run():
 	if not drones.back():
 		return False
 
-	print '<-- mission \n'
+	print '<-- mission Success Comes At A Price\n'
 	return True

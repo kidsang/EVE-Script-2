@@ -20,15 +20,15 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	ship.enableAfterburn()
 
 	if not overview.activateAccelerationGate():
 		return False
 
 	print 'pocket 1'
+
+	if not overview.switchTo('battle'):
+		return False
 
 	if not drones.launchSentry():
 		return False
@@ -66,7 +66,12 @@ def run():
 
 	drones.engage()
 
+	overview.switchTo('battle')
+
 	while not overview.pickCargo():
+		pass
+
+	while overview.pickCargo():
 		pass
 
 	if not drones.back():

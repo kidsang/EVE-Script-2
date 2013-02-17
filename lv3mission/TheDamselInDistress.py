@@ -43,12 +43,10 @@ def run():
 
 	#there are two cargos
 	count = 0;
-	while True:
+	while count < 2:
 		if overview.pickCargo():
 			count += 1
 			time.sleep(2)
-		if count == 2:
-			break;
 
 	if not drones.back():
 		return False

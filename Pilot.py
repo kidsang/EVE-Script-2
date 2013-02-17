@@ -46,7 +46,7 @@ def autopilot():
             key.pressEx(sc.Activate)
             print 'wait until entering station'
             begin = time.time()
-            while not find(panel.ProgressBar, 'entering_station', 0.1) and time.time() - begin < 180:
+            while not find(panel.ProgressBar, 'entering_station', 0.1) and time.time() - begin < 80:
                 time.sleep(0.1)
             print 'entering station'
             time.sleep(4)
@@ -61,7 +61,7 @@ def autopilot():
             key.pressEx(sc.Activate)
             print 'wait until entering space'
             begin = time.time()
-            while not find(panel.ProgressBar, 'entering_space', 0.1) and time.time() - begin < 180:
+            while not find(panel.ProgressBar, 'entering_space', 0.1) and time.time() - begin < 80:
                 time.sleep(0.1)
             print 'entering space'
             time.sleep(4)

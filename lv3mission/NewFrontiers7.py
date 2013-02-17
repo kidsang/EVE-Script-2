@@ -23,9 +23,6 @@ def run():
 	if not general.openMissionDetails():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	ship.enableAfterburn()
 
 	if not overview.activateAccelerationGate():

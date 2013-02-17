@@ -17,9 +17,7 @@ from Finder import *
 def run():
 	print '--> mission The Space Telescope'
 
-	ship.enableDefense()
-
-	if not overview.switchTo('battle'):
+	if not ship.enableDefense():
 		return False
 
 	if not overview.activateAccelerationGate():
@@ -49,3 +47,7 @@ def run():
 
 	print '<-- mission The Space Telescope\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

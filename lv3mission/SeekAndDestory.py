@@ -23,9 +23,6 @@ def run():
 	if not general.openMissionDetails():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	if not overview.activateAccelerationGate():
 		return False
 

@@ -20,7 +20,7 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
+	if not general.openMissionDetails():
 		return False
 
 	ship.enableAfterburn()
@@ -28,7 +28,7 @@ def run():
 	if not overview.activateAccelerationGate():
 		return False
 
-	if not general.openMissionDetails():
+	if not overview.switchTo('battle'):
 		return False
 
 	if not overview.lockTarget('guristas_personnel'):
@@ -59,6 +59,10 @@ def run():
 
 	if not general.missionObjectiveComplete():
 		return False
+
+	# sometimes we already has millitans
+	# but the mission is not complete until all enemy dies
+	overview.seekAndDestory()
 
 	if not drones.back():
 		return False

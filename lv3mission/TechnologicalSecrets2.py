@@ -46,3 +46,7 @@ def run():
 
 	print '<-- mission Technological Secrets 2\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

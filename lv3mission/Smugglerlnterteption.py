@@ -20,9 +20,6 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	# 2 pockets
 	for i in range(2):
 
@@ -42,9 +39,8 @@ def run():
 			return False
 
 	# loot grustas personal transport
-	if not overview.pickTarget('guristas_personnel'):
-		return False
-
+	while not overview.pickTarget('guristas_personnel'):
+		pass
 
 	print '<-- mission Smuggler lnterteption\n'
 	return True

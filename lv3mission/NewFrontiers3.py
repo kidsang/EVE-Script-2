@@ -56,3 +56,7 @@ def run():
 
 	print '<-- mission New Frontiers - Raw Materials (3 of 7)\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

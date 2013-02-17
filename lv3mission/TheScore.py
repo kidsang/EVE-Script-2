@@ -20,9 +20,6 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	if not overview.activateAccelerationGate():
 		return False
 
@@ -46,7 +43,7 @@ def run():
 
 	ship.enableAfterburn()	
 
-	ship.approachFor(120)
+	ship.approachFor(160)
 
 	ship.fireOnce()
 

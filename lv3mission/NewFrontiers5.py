@@ -49,8 +49,8 @@ def run():
 
 	ship.enableAfterburn()
 
-	while not overview.pickCargo():
-		pass
+	while overview.findTarget('cargo'):
+		overview.pickCargo()
 
 	if not drones.back():
 		return False

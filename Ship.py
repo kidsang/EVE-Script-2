@@ -40,6 +40,12 @@ def approachFor(second):
 	print '<-- approaching target\n'
 	return True
 
+def stop():
+	print '--> ship stop'
+	key.pressEx(sc.Stop)
+	print '<-- ship stop\n'
+	return True
+
 def fireOnce():
 	print '--> establishing hatred'
 	key.pressEx(sc.HeightSlot1)
@@ -58,4 +64,4 @@ def mine():
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	enableAfterburn()
+	stop()

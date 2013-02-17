@@ -52,6 +52,7 @@ import TheMissingConvoy as the_missing_convoy
 import TheSpaceTelescope as the_space_telescope
 import CutThroatCompetition as cut_throat_competition
 import Retribution as retribution
+import TheSevensPrisionFacility as the_sevens_prision_facility
 
 agent = 'img/agent.bmp'
 
@@ -59,7 +60,7 @@ battle = {
 			'The Spg Stash':the_spy_stash,
 			'Eliminate the Pirate Campers':eliminate_the_pirate_campers,
 			'The Damsel In Distress':the_damsel_in_distress,
-			# 'Pink \*nur Poison':pick_your_position,
+			'Pink \*nur Poison':pick_your_position,
 			'Pirate Invasion':pirate_invasion,
 			'Deadlg Arrival':deadly_arrival,
 			'Rogue Drone Harassment':rouge_drone_harassment,
@@ -78,41 +79,45 @@ battle = {
 			'The Snare':the_score, 
 			'The Blank Market Hub':the_black_market_hub,
 			'Unauthorized Militarg Presence':unauthorized_military_presence,
-			'Intercept The Sabateurs':intercept_the_sabateurs,
+			# 'Intercept The Sabateurs':intercept_the_sabateurs, #rewrited
 			'Cargo Deliverg':cargo_deliver,
 			'The Rogue Slave Trader (1 of 2)':the_rogue_slave_trade_1,
 			'Dawning The Slavers (2 of 2)':downing_the_slavers_2,
 			'Angel Extravaganza':angel_extravaganza,
 			'Silence The Informant':silence_the_informat,
-			'New Frontiers - Raw Materials (1 of 1*]':new_frontiers_1,
+			'New Frontiers - Raw Materials (1 of 1*)':new_frontiers_1,
 			'New Frontiers - Mad Snientist (2 of 1*)':new_frontiers_2,
 			'New Frontiers - The Unveiling (4 of 1*)':new_frontiers_4,
-			'New Frontiers - An Unexpected Twist (':new_frontiers_5,
+			'New Frontiers - An Unexpected Twist (5 of 1*)':new_frontiers_5,
 			# 'New Frontiers - Asnendanne (? of 1*)':new_frontiers_7, #heavy damage
 			'Gone Berserk':gone_berserk,
 			'The Missing Canvog':the_missing_convoy,
 			'The Spate Telescope':the_space_telescope,
 			'Cut-Throat Competition':cut_throat_competition,
 			'Retributinn':retribution,
+			"The Seven'ss Prison Fanilitg":the_sevens_prision_facility,
 		}
 
 transport = {
 				'Tenhnalaginal Secrets (2 of 3)':technological_secrets_2,
-				'New Frontiers - Toward a Solution (3 a':new_frontiers_3,
-				'New Frontiers - Nanite Express (5 of ?':new_frontiers_6,
+				'New Frontiers - Toward a Solution (3 of 1*)':new_frontiers_3,
+				'New Frontiers - Nanite Express (5 of 1*)':new_frontiers_6,
 			}
 
 skip = [
 		'Lights Out', # gallent standing
 		'The Blnnkade', # will attack drones, heavy damage, heavy shield
-		'Illegal Mtivitg (1 of 3)', # gallent stading
+		'Illegal Mtivitg (1 of 3)', # gallent standing
 		'The Good Word', # gate seens never unlock
-		'Driving a Wedge - Get the Gallants (1 of', # gallent stading
+		'Driving a Wedge - Get the Gallants (1 of 2)', # gallent standing
+		'Driving a Wedge - Ambassadnrial Ambush (1 of 2)', # gallent & mimatar standing
+		"The Seven'ss Prison Fanilitg", # a dialog show up while warping to place, that makes me lost my dominix navy
 		]
 
 
 def run():
 	print 'mission bot begin.\n'
+	log('\n\nbot started\n')
 
 	while True:
 
@@ -212,6 +217,11 @@ def runTransport(mission):
 		return False
 
 	return True
+
+def log(sth):
+	f = open('mission.log', 'a')
+	f.write(sth)
+	f.close()
 
 def record(mission, action):
 	f = open('mission.log', 'a')

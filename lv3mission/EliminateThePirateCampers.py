@@ -26,6 +26,13 @@ def run():
 	if not overview.switchTo('battle'):
 		return False
 
+	begin = time.time()
+	result = None
+	while not result and time.time() - begin < 10:
+		result = findAtFull('close')
+	if result:
+		mouse.leftClickAtP(result)
+
 	# kill small
 
 	count = 0
@@ -36,11 +43,9 @@ def run():
 
 	begin = time.time()
 	while time.time() - begin < 120:
+		time.sleep(0.5)
 		if findAtDrones('idle'):
 			drones.engage()
-		result = findAtFull('close')
-		if result:
-			mouse.leftClickAtP(result)
 
 	if not drones.back():
 		return False

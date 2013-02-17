@@ -45,9 +45,10 @@ def repair():
 	mouse.leftClickAt(result[0], result[1] + 70)
 	key.pressEx('ctrl+a')
 
-	result = findAtFull('repair_item')
-	if not result:
-		return False
+	result = None	
+	while not result:
+		result = findAtFull('repair_item')
+		time.sleep(0.2)
 	mouse.leftClickAtP(result)
 
 	print 'wait...'
@@ -67,9 +68,10 @@ def repair():
 	else:
 		print 'nothing to repair'
 
-	result = findAtFull('x')
-	if not result:
-		return False
+	result = None
+	while not result:
+		time.sleep(0.2)
+		result = findAtFull('x')
 	mouse.leftClickAtP(result)
 
 	print '<-- repair\n'
@@ -158,10 +160,10 @@ def activateShip(ship):
 	key.pressEx(sc.ShipHangar)
 	time.sleep(3)
 
-	result = findAtInventory(ship)
-	if not result:
-		print 'can not find ' + ship
-		return False
+	result = None
+	while not result:
+		time.sleep(0.5)
+		result = findAtInventory(ship)
 	mouse.rightClickAtP(result)
 	mouse.moveTo(result[0] + 200, result[1])
 
@@ -179,8 +181,9 @@ def startConversation(agent):
 	print '--> start conversation'
 
 	result = pic.findImgR(panel.StationServices, agent)
-	if not result:
-		return False
+	while not result:
+		time.sleep(0.5)
+		result = pic.findImgR(panel.StationServices, agent)
 	mouse.doubleClickAtP(result)
 
 	print 'wait until conversation start'
@@ -215,9 +218,10 @@ def acceptMission():
 def declineMission():
     print '--> decline mission'
 
-    result = findAtMissionRight('decline')
-    if not result:
-    	return False
+    result = None
+    while not result:
+    	time.sleep(0.2)
+    	result = findAtMissionRight('decline')
     mouse.leftClickAtP(result)
 
     begin = time.time()
@@ -246,9 +250,10 @@ def declineMission():
 def completeMission():
 	print '--> complete mission\n'
 
-	result = findAtMissionRight('complete_mission')
-	if not result:
-		return False
+	result = None
+	while not result:
+		time.sleep(0.2)
+		result = findAtMissionRight('complete_mission')
 	mouse.leftClickAtP(result)
 	mouse.moveTo(result[0], result[1] - 100)
 
@@ -256,9 +261,10 @@ def completeMission():
 	while not findAtMissionRight('request_mission'):
 		time.sleep(0.2)
 
-	result = findAtMissionRight('x')
-	if not result:
-		return False
+	result = None
+	while not result:
+		time.sleep(0.2)
+		result = findAtMissionRight('x')
 	mouse.leftClickAtP(result)
 
 	print '<-- complete mission\n'

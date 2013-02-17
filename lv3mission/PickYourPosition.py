@@ -17,10 +17,10 @@ from Finder import *
 def run():
 	print '--> mission Pick Your Position'
 
-	if not overview.switchTo('battle'):
+	if not overview.activateAccelerationGate():
 		return False
 
-	if not overview.activateAccelerationGate():
+	if not overview.switchTo('battle'):
 		return False
 
 	# pocket 1
@@ -40,6 +40,9 @@ def run():
 	mouse.leftClickAtP(result)
 
 	if not overview.activateAccelerationGate():
+		return False
+		
+	if not overview.switchTo('battle'):
 		return False
 
 	# back to pocket 0
@@ -64,28 +67,34 @@ def run():
 
 
 	result = findAtFull('ship')
-	if result:
-		mouse.leftClickAtP(result)
+	while not result:
+		result = findAtFull('ship')
+	mouse.leftClickAtP(result)
 
-	time.sleep(2)
 	result = findAtFull('minmatar_emissary')
-	if result:
-		mouse.leftDownAtP(result)
+	while not result:
+		result = findAtFull('minmatar_emissary')
+	mouse.leftDownAtP(result)
 
-	return False
-	result = findAtFull('sisters')
+	result = findAtFull('ship_hl')
+	while not result:
+		result = findAtFull('ship_hl')
+	mouse.moveTo(result[0] + 40, result[1] + 60)
+	mouse.leftUp()
+
+	result = findAtFull('close')
+	while not result:
+		result = findAtFull('close')
+	mouse.leftClickAtP(result)
+
+	time.sleep(1)
+	result = findAtFull('ship_hl')
+	if not result:
+		result = findAtFull('ship')
 	if result:
 		mouse.moveToP(result)
-	mouse.leftUp()
-	time.sleep(1)
 
 	result = findAtFull('x')
-	if result:
-		mouse.leftClickAtP(result)
-
-	time.sleep(1)
-	mouse.moveTo(200, 200)
-	result = findAtFull('close')
 	if result:
 		mouse.leftClickAtP(result)
 

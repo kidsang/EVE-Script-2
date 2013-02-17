@@ -19,22 +19,20 @@ def run():
 
 	result = None
 	begin = time.time()
-	while not result and time.time() - begin < 10:
+	while not result and time.time() - begin < 5:
 		time.sleep(0.2)
 		result = findAtFull('close')
+	if result:
 		mouse.leftClickAtP(result)	
 
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
+	if not drones.launchSmall():
 		return False
 
 	if not general.openMissionDetails():
 		return False
-
-	if not drones.launchSmall():
-			return False
 
 	ship.enableAfterburn()	
 
@@ -48,3 +46,7 @@ def run():
 
 	print '<-- mission Intercept the Pirate Smugglers\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

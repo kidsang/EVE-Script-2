@@ -55,11 +55,12 @@ def findTarget(target, threashould = 0.1):
 	return result
 
 def lockTarget(target, wait = 5):
-	print '--> lock target "' + target + '"'
 
 	result = findTarget(target)
 	if not result:
 		return False
+
+	print '--> lock target "' + target + '"'
 
 	mouse.leftClickAtP(result)
 	key.pressEx(sc.Lock)
@@ -110,9 +111,10 @@ def lockEnemy(wait = 5):
 	return True
 
 def activateAccelerationGate():
-	print '--> activate acceleration gate\n'
-
+	switchTo('pilot')
 	general.enterStarMap()
+
+	print '--> activate acceleration gate\n'
 
 	mouse.leftDownAtP(panel.center(panel.Full))
 	mouse.move(500, 200)
@@ -132,6 +134,7 @@ def activateAccelerationGate():
 		if result:
 			mouse.leftClickAtP(result)
 			mouse.moveTo(result[0], result[1] - 200)
+		key.pressEx(sc.Activate)
 		time.sleep(1)
 
 	print 'wait until reach location'
@@ -149,9 +152,10 @@ def activateAccelerationGate():
 	while findAtDashboard('warp_drive_active'):
 		time.sleep(0.5)
 
-	general.exitStarMap()
-
 	print '<-- activate acceleration gate\n'
+
+	general.exitStarMap()
+	
 	return True
 
 def pickWreck():
@@ -236,20 +240,27 @@ def pickTarget(target):
 	return True
 
 def seekAndDestory():
+
+	switchTo('battle')
+
 	print '--> seek and destory'
-	while not findAtMissionDetails('v') and lockEnemy():
-		time.sleep(5)
-		ship.approach()
-		ship.fireOnce()
-		time.sleep(15)
-		mouse.moveTo(200, 200)
+
+	while not findAtMissionDetails('v'):
+		if findAtDrones('fighting'):
+			time.sleep(5)
+		elif lockEnemy():
+			mouse.moveTo(200, 200)
+			time.sleep(10)
+			ship.approach()
+			ship.fireOnce()
+			time.sleep(5)
+		else:
+			break
+
 	print '<-- seek and destory\n'
+
 	return True
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	lockTarget('s')
-	# pickCargo()
-
-	# switchOverview('lco')
-	pass
+	seekAndDestory()

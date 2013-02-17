@@ -8,6 +8,9 @@ Orbit = 'w'
 Lock = 'ctrl'
 Unlock = 'alt'
 
+# navigation
+Stop = 'ctrl+space'
+
 # drones
 DronesEngage = 'f'
 DronesReturnOrbit = 'shift+alt+r'

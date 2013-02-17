@@ -9,11 +9,11 @@ from Finder import *
 def enterStarMap():
 	print '--> enter star map'
 	key.pressEx(sc.Map)
-
 	begin = time.time()
 	while findAtProgressBar('initializing_map') or time.time() - begin < 3:
 		time.sleep(0.5)
-	time.sleep(0.5)
+	mouse.moveToP(panel.center(panel.Full))
+	mouse.wheel(100)
 	print '<-- enter star map\n'
 
 def exitStarMap():
@@ -22,25 +22,23 @@ def exitStarMap():
 	time.sleep(2)
 	print '<-- exit star map\n'
 
-def enterBlack():
-	print '--> enter black'
-	enterStarMap()
-	mouse.moveToP(panel.center(panel.Full))
-	mouse.leftDown()
-	mouse.move(500, 200)
-	mouse.leftUp()
-	print '<-- enter black\n'
+def openMissionMenu():
+	print '--> open mission menu'
+	result = findAtInfo('agent_mission')
+	while not result:
+		result = findAtInfo('agent_mission')
+		time.sleep(0.5)
+	mouse.leftClickAt(result[0] + 20, result[1] + 33)
+	time.sleep(1)
+	print '<-- open mission menu\n'
+
 
 def setMissionWaypoint():
 	print '--> set mission waypoint'
 
 	enterStarMap()
 
-	result = findAtInfo('agent_mission')
-	if not result:
-		return False
-	mouse.leftClickAt(result[0] + 20, result[1] + 33)
-	time.sleep(1)
+	openMissionMenu()
 
 	result = findAtInfo('set_destination')
 	if not result:
@@ -57,30 +55,45 @@ def warpToMissionLocation():
 
 	enterStarMap()
 
-	result = findAtInfo('agent_mission')
-	if not result:
-		return False
-	mouse.leftClickAt(result[0] + 20, result[1] + 33)
-	time.sleep(1)
-
-	result = findAtInfo('warp_to_location')
-	if not result:
-		return False
-	mouse.leftClickAtP(result)
-
-	time.sleep(1)
-
 	mouse.moveToP(panel.center(panel.Full))
 	mouse.leftDown()
 	mouse.move(500, 200)
 	mouse.leftUp()
 
-	print 'wait until warp drive active'
-	while not findAtDashboard('warp_drive_active'):
+	openMissionMenu()
+
+	result = findAtInfo('warp_to_location')
+	while not result:
+		result = findAtInfo('warp_to_location')
 		time.sleep(0.5)
+	mouse.leftClickAtP(result)
+
+	time.sleep(1)
+	
+	print 'wait to activate gate'
+	while not findAtDashboard('warp_drive_active'):
+		result = findAtFull('close')
+		if not result:
+			result = findAtFull('ok')
+		if result:
+			mouse.leftClickAtP(result)
+			mouse.moveTo(result[0], result[1] - 200)
+		time.sleep(1)
+
 	print 'wait until reach location'
 	while findAtDashboard('warp_drive_active'):
-		time.sleep(0.2)
+		time.sleep(0.5)
+
+	result = findAtFull('close')
+	if not result:
+		result = findAtFull('ok')
+	if result:
+		mouse.leftClickAtP(result)
+		mouse.moveTo(result[0], result[1] - 200)
+	time.sleep(1)
+
+	while findAtDashboard('warp_drive_active'):
+		time.sleep(0.5)
 
 	exitStarMap()
 
@@ -92,21 +105,18 @@ def backToAgentStation():
 
 	enterStarMap()
 
-	result = findAtInfo('agent_mission')
-	if not result:
-		return False
-	mouse.leftClickAt(result[0] + 20, result[1] + 33)
-	time.sleep(1)
+	openMissionMenu()
 
 	result = findAtInfo('dock')
-	if not result:
-		return False
+	while not result:
+		result = findAtInfo('dock')
+		time.sleep(0.5)
 	mouse.leftClickAtP(result)
 
 	exitStarMap()
 
 	print 'wait until reach station'
-	time.sleep(5)
+	time.sleep(10)
 	while not findAtMenu('undock'):
 		time.sleep(1)
 
@@ -116,28 +126,26 @@ def backToAgentStation():
 	return True
 
 def openMissionDetails():
+	enterStarMap()
+
 	print '--> open mission detail'
 
-	key.pressEx(sc.Journal)
+	openMissionMenu()
 
-	result = None
+	result = findAtInfo('read_details')
 	while not result:
-		time.sleep(0.2)
-		result = findAtFull('accepted')
-	mouse.doubleClickAtP(result)
+		result = findAtInfo('read_details')
+		time.sleep(0.5)
+	mouse.leftClickAtP(result)
 
-	print 'wait to open mission details'
-	while not findAtMissionDetails('mission_journal'):
-		time.sleep(0.2)
-
+	print 'wait until find mission objective'
 	while not findAtMissionDetails('o'):
 		mouse.leftClickAt(panel.MissionDetails[0] + 20, panel.MissionDetails[1] + 20)
 		mouse.wheel(-20)
 
-	key.pressEx(sc.Journal)
-	key.pressEx(sc.Journal)
-
 	print '<-- open mission detail\n'
+
+	exitStarMap()
 	return True
 
 def missionObjectiveComplete():
@@ -148,10 +156,10 @@ def missionObjectiveComplete():
 		time.sleep(1)
 
 	mouse.moveToP(panel.center(panel.MissionDetails))
-	time.sleep(0.5)
-	result = findAtMissionDetails('x')
-	if not result:
-		return False
+	result = None
+	while not result:
+		time.sleep(0.5)
+		result = findAtMissionDetails('x')
 	mouse.leftClickAtP(result)
 
 	print '<-- judge if mission complete\n'
@@ -159,4 +167,4 @@ def missionObjectiveComplete():
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	openMissionDetails()
+	enterStarMap()

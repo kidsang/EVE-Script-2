@@ -20,9 +20,6 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	if not drones.launchSmall():
 		return False
 

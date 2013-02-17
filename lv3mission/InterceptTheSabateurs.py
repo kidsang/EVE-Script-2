@@ -23,9 +23,6 @@ def run():
 	if not drones.launchSmall():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	overview.seekAndDestory()
 
 	if not drones.back():
@@ -37,29 +34,68 @@ def run():
 		return False
 
 	# pocket 1
+	# main enemies are 90km away
+	# approach for 85 secs
+	# mean while clean up nearby enemy
 
 	drones.launchSmall()
+
+	if not overview.switchTo('battle'):
+		return False
 
 	if not overview.lockTarget('transport', 1):
 		return False
 
 	ship.enableAfterburn()
 
-	ship.approachFor(240)
+	ship.approachFor(85)
 
-	general.openMissionDetails()
+	# wait for stop
+	begin = time.time()
+	while time.time() - begin < 20:
+		ship.stop()
+		key.pressEx(sc.Unlock)
 
-	if not overview.lockTarget('transport', 15):
+	mouse.moveToP(panel.center(panel.Drones))
+
+	mouse.wheel(-100)
+
+	while findAtDrones('fighting'):
+		time.sleep(10)
+
+	drones.back()
+
+	# use sentry to destory all the smalls
+
+	for i in range(6):
+		overview.lockTarget('s', 1)
+
+	drones.launchSentry()
+
+	begin = time.time()
+	while overview.lockTarget('s', 1) and time.time() - begin < 130:
+		time.sleep(0.5)
+		drones.engage()
+
+	drones.back()
+
+	ship.fireOnce()
+
+	drones.launchSmall()
+
+	if not overview.lockTarget('transport', 1):
 		return False
 
-	seekAndDestory()
+	ship.approach()
 
 	while not overview.pickCargo():
 		pass
-
-	general.missionObjectiveComplete()
 
 	drones.back()
 
 	print '<-- mission Intercept The Sabateurs\n'
 	return True
+
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

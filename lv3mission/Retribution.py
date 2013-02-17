@@ -20,9 +20,6 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
-
 	if not overview.activateAccelerationGate():
 		return False
 
@@ -47,8 +44,6 @@ def run():
 
 	if not drones.back():
 		return False
-
-
 
 	print '<-- mission Retribution\n'
 	return True

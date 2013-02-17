@@ -25,9 +25,10 @@ def run():
 
 	result = None
 	begin = time.time()
-	while not result and time.time() - begin < 10:
+	while not result and time.time() - begin < 5:
 		time.sleep(0.2)
 		result = findAtFull('close')
+	if result:
 		mouse.leftClickAtP(result)
 
 	if not general.openMissionDetails():

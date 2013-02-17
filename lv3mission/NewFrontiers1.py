@@ -38,6 +38,12 @@ def run():
 
 	ship.mine()
 
+	begin = time.time()
+	while not findAtMissionDetails('v') and time.time() - begin > 130:
+		overview.lockTarget('green_arisite', 20)
+		ship.mine()
+		begin = time.time()
+
 	if not general.missionObjectiveComplete():
 		return False
 
@@ -46,3 +52,7 @@ def run():
 
 	print '<-- mission New Frontiers - Raw Materials (1 of 7)\n'
 	return True
+	
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()
