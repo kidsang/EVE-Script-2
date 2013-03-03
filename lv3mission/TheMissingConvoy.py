@@ -1,3 +1,4 @@
+
 import sys
 sys.path.append('..')
 
@@ -51,10 +52,11 @@ def run():
 
 	drones.engage()
 
-	count = 0
-	while count < 2:
-		if overview.pickCargo():
-			count += 1
+	while not overview.pickCargo():
+		time.sleep(2)
+
+	while overview.pickCargo():
+		pass
 
 	if not drones.back():
 		return False

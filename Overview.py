@@ -12,18 +12,29 @@ from Finder import *
 def switchTo(name):
 	print '--> switch overview setting to ' + name
 
-	result = findAtOverview('overview')
-	if not result:
-		return False
-	mouse.leftClickAtP(result)
-	mouse.moveTo(result[0] - 400, result[1])
-	time.sleep(0.5)
+	trycount = 0
+	success = False
+	while not success and trycount < 3:
+		success = True
+		trycount += 1
+		result = findAtOverview('overview')
+		if not result:
+			success = False
+		mouse.leftClickAtP(result)
+		mouse.moveTo(result[0] - 400, result[1])
+		time.sleep(0.5)
 
-	result = findAtOverview(name)
-	if not result:
+		result = findAtOverview(name)
+		if not result:
+			success = False
+		mouse.leftClickAtP(result)
+		time.sleep(0.5)
+
+		if not success:
+			mouse.leftClickAtP(panel.center(panel.Full))
+
+	if not success:
 		return False
-	mouse.leftClickAtP(result)
-	time.sleep(0.5)
 
 	print '<-- switch overview setting to ' + name + '\n'
 	return True
@@ -246,9 +257,10 @@ def seekAndDestory():
 	print '--> seek and destory'
 
 	while not findAtMissionDetails('v'):
-		if findAtDrones('fighting'):
-			time.sleep(5)
-		elif lockEnemy():
+		# if findAtDrones('fighting'):
+		# 	time.sleep(5)
+		# elif lockEnemy():
+		if lockEnemy():
 			mouse.moveTo(200, 200)
 			time.sleep(10)
 			ship.approach()

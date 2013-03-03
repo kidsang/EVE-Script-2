@@ -39,22 +39,35 @@ def run():
 		return False
 
 	# pocket 2
-	overview.lockEnemy(25)
+	if not overview.switchTo('battle'):
+		return False
+
+	for i in range(4):
+		overview.lockTarget('s', 1)
+
+	drones.launchSentry()
+
+	time.sleep(20)
+
+	begin = time.time()
+	while time.time() - begin < 100:
+		ship.fireOnce()
+		drones.engage()
+		overview.lockEnemy(1)
+
+	drones.back()
 
 	ship.enableAfterburn()	
 
-	ship.approachFor(160)
-
-	ship.fireOnce()
-
 	if not drones.launchSmall():
 		return False
+
+	ship.fireOnce()
 
 	overview.seekAndDestory()
 
 	if not drones.back():
 		return False
-
 
 	print '<-- mission The Score\n'
 	return True

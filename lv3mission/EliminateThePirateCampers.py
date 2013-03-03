@@ -28,7 +28,7 @@ def run():
 
 	begin = time.time()
 	result = None
-	while not result and time.time() - begin < 10:
+	while not result and time.time() - begin < 5:
 		result = findAtFull('close')
 	if result:
 		mouse.leftClickAtP(result)
@@ -43,16 +43,12 @@ def run():
 
 	begin = time.time()
 	while time.time() - begin < 120:
-		time.sleep(0.5)
-		if findAtDrones('idle'):
-			drones.engage()
+		overview.lockTarget('s', 1)
+		ship.fireOnce()
+		drones.engage()
 
 	if not drones.back():
 		return False
-
-	result = findAtDrones('sentry')
-	if result:
-		mouse.leftClickAtP(result)
 
 	# seek and destory
 
@@ -66,7 +62,6 @@ def run():
 
 	overview.seekAndDestory()
 
-
 	if not general.missionObjectiveComplete():
 		return False
 
@@ -75,4 +70,7 @@ def run():
 
 	print '<-- mission Eliminate the Pirate Campers\n'
 	return True
-
+	
+if __name__ == '__main__':
+	mouse.leftClickAtP(panel.center(panel.Full))
+	run()

@@ -74,6 +74,8 @@ def run():
 	while overview.pickCargo():
 		pass
 
+	overview.seekAndDestory()
+
 	if not drones.back():
 		return False
 

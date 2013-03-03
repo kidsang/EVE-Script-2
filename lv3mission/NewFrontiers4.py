@@ -36,6 +36,9 @@ def run():
 	drones.engage()
 
 	while not overview.pickCargo():
+		time.sleep(5)
+
+	while overview.pickCargo():
 		pass
 
 	if not drones.back():

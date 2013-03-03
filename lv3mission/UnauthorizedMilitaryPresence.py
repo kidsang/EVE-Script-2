@@ -64,6 +64,9 @@ def run():
 	# but the mission is not complete until all enemy dies
 	overview.seekAndDestory()
 
+	# just in case
+	overview.pickTarget('guristas_personnel')
+
 	if not drones.back():
 		return False
 

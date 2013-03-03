@@ -39,9 +39,14 @@ def run():
 	# mean while clean up nearby enemy
 
 	drones.launchSmall()
-
+	
 	if not overview.switchTo('battle'):
 		return False
+
+	if not overview.lockEnemy(20):
+		return False
+
+	ship.fireOnce()
 
 	if not overview.lockTarget('transport', 1):
 		return False
@@ -74,19 +79,18 @@ def run():
 
 	begin = time.time()
 	while overview.lockTarget('s', 1) and time.time() - begin < 130:
-		time.sleep(0.5)
+		ship.fireOnce()
 		drones.engage()
 
 	drones.back()
+
+	# do the rest
 
 	ship.fireOnce()
 
 	drones.launchSmall()
 
-	if not overview.lockTarget('transport', 1):
-		return False
-
-	ship.approach()
+	overview.seekAndDestory()
 
 	while not overview.pickCargo():
 		pass

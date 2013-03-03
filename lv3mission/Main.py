@@ -58,7 +58,7 @@ agent = 'img/agent.bmp'
 
 battle = {
 			'The Spg Stash':the_spy_stash,
-			'Eliminate the Pirate Campers':eliminate_the_pirate_campers,
+			# 'Eliminate the Pirate Campers':eliminate_the_pirate_campers, 
 			'The Damsel In Distress':the_damsel_in_distress,
 			'Pink \*nur Poison':pick_your_position,
 			'Pirate Invasion':pirate_invasion,
@@ -70,7 +70,7 @@ battle = {
 			'Sunness Comes At A Price':success_comes_at_a_price,
 			'Seek and Destmg':seek_and_destory,
 			'Break Their Will':break_their_will,
-			'Guristas Extravaganza':guristas_extravaganza,
+			# 'Guristas Extravaganza':guristas_extravaganza,
 			'Stop The Thief':stop_the_thief,
 			'Smuggler lnterteption':smuggler_lnterteption,
 			'lntertept The Pirate Smugglers':intercept_the_pirate_smugglers,
@@ -79,7 +79,7 @@ battle = {
 			'The Snare':the_score, 
 			'The Blank Market Hub':the_black_market_hub,
 			'Unauthorized Militarg Presence':unauthorized_military_presence,
-			# 'Intercept The Sabateurs':intercept_the_sabateurs, #rewrited
+			'Intercept The Sabateurs':intercept_the_sabateurs,
 			'Cargo Deliverg':cargo_deliver,
 			'The Rogue Slave Trader (1 of 2)':the_rogue_slave_trade_1,
 			'Dawning The Slavers (2 of 2)':downing_the_slavers_2,
@@ -112,6 +112,9 @@ skip = [
 		'Driving a Wedge - Get the Gallants (1 of 2)', # gallent standing
 		'Driving a Wedge - Ambassadnrial Ambush (1 of 2)', # gallent & mimatar standing
 		"The Seven'ss Prison Fanilitg", # a dialog show up while warping to place, that makes me lost my dominix navy
+		'New Frontiers - Asnendanne (? of 1*)', #heavy damage
+		'Eliminate the Pirate Campers', # not enough targeting range, until skill complete
+		'Guristas Extravaganza',
 		]
 
 
@@ -153,7 +156,7 @@ def run():
 		# 	return False
 		# mouse.leftClickAtP(result)
 
-		if not general.setMissionWaypoint():
+		if not general.setMissionWaypoint(True):
 			print 'Error: Cant set mission waypoint.'
 			return False
 
@@ -186,12 +189,8 @@ def runBattle(mission):
 	if not bot.run():
 		return False
 
-	if general.setMissionWaypoint():
-		pilot.autopilot()
-	else:
-		mouse.leftClick()
-		general.exitStarMap()
-		general.backToAgentStation()
+	if not general.backToAgentStation():
+		return False
 
 	if not station.startConversation(agent):
 		return False

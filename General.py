@@ -3,6 +3,7 @@ import Mouse as mouse
 import Keyboard as key
 import Shortcut as sc
 import Picture as pic
+import Pilot as pilot
 import time
 from Finder import *
 
@@ -24,25 +25,38 @@ def exitStarMap():
 
 def openMissionMenu():
 	print '--> open mission menu'
+
 	result = findAtInfo('agent_mission')
+	if not result:
+		result = findAtInfo('mission_head')
+		if result:
+			mouse.leftClickAtP(result)
+			time.sleep(1)
+
 	while not result:
 		result = findAtInfo('agent_mission')
 		time.sleep(0.5)
-	mouse.leftClickAt(result[0] + 20, result[1] + 33)
+	mouse.leftClickAt(result[0] + 60, result[1] + 30)
 	time.sleep(1)
 	print '<-- open mission menu\n'
 
 
-def setMissionWaypoint():
+def setMissionWaypoint(retry = False):
 	print '--> set mission waypoint'
 
 	enterStarMap()
 
 	openMissionMenu()
 
-	result = findAtInfo('set_destination')
-	if not result:
-		return False
+	while True:
+		result = findAtInfo('set_destination')
+		if not result and not retry:
+			return False
+		elif not result:
+			mouse.leftClickAtP(panel.center(panel.Full))
+		else:
+			break
+
 	mouse.leftClickAtP(result)
 
 	exitStarMap()
@@ -103,24 +117,23 @@ def warpToMissionLocation():
 def backToAgentStation():
 	print '--> back to agent station'
 
-	enterStarMap()
-
-	openMissionMenu()
-
-	result = findAtInfo('dock')
-	while not result:
+	if setMissionWaypoint():
+		pilot.autopilot()
+	else:
 		result = findAtInfo('dock')
-		time.sleep(0.5)
-	mouse.leftClickAtP(result)
+		while not result:
+			result = findAtInfo('dock')
+			time.sleep(0.5)
+		mouse.leftClickAtP(result)
 
-	exitStarMap()
+		exitStarMap()
 
-	print 'wait until reach station'
-	time.sleep(10)
-	while not findAtMenu('undock'):
-		time.sleep(1)
+		print 'wait until reach station'
+		time.sleep(10)
+		while not findAtMenu('undock'):
+			time.sleep(1)
 
-	time.sleep(4)
+		time.sleep(4)
 
 	print '<-- back to agent station\n'
 	return True
@@ -167,4 +180,4 @@ def missionObjectiveComplete():
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	enterStarMap()
+	backToAgentStation()

@@ -23,8 +23,7 @@ def run():
 	if not drones.launchSmall():
 		return False
 
-	if not overview.switchTo('battle'):
-		return False
+	overview.seekAndDestory()
 
 	if not ship.enableAfterburn():
 		return False

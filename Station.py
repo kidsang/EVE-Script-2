@@ -258,13 +258,45 @@ def completeMission():
 	mouse.moveTo(result[0], result[1] - 100)
 
 	print 'wait until complete mission'
-	while not findAtMissionRight('request_mission'):
-		time.sleep(0.2)
+	result = None
+	flag = False
+	while not result:
+		result = findAtMissionRight('request_mission')
+		if result:
+			flag = True
+			break
 
+		result = findAtMissionRight('can_not_complete_mission')
+		if result:
+			flag = False
+			break
+
+	if not flag:
+		print 'can not complete'
+
+		result = None
+		while not result:
+			time.sleep(0.2)
+			result = findAtFull('ok')
+		mouse.leftClickAtP(result)
+
+		result = None
+		while not result:
+			time.sleep(0.2)
+			result = findAtMissionRight('quit_mission')
+		mouse.leftClickAtP(result)
+
+		result = None
+		while not result:
+			time.sleep(0.2)
+			result = findAtFull('yes')
+		mouse.leftClickAtP(result)
+
+	mouse.moveToP(panel.center(panel.MissionLeft))
 	result = None
 	while not result:
 		time.sleep(0.2)
-		result = findAtMissionRight('x')
+		result = findAtMission('x')
 	mouse.leftClickAtP(result)
 
 	print '<-- complete mission\n'
@@ -273,6 +305,6 @@ def completeMission():
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	repair()
+	completeMission()
 
 

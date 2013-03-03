@@ -21,10 +21,12 @@ def run():
 		return False
 
 	result = None
-	while not result:
+	begin = time.time()
+	while not result and time.time() - begin < 5:
 		time.sleep(0.5)
 		result = findAtFull('close')
-	mouse.leftClickAtP(result)
+	if result:
+		mouse.leftClickAtP(result)
 
 	if not drones.launchSmall():
 		return False
