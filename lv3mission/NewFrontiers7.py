@@ -15,7 +15,7 @@ import time
 from Finder import *
 
 def run():
-	print '--> mission New Frontiers - Raw Materials (7 of 7)'
+	print '--> mission New Frontiers - Asnendanne (7 of 7)'
 
 	if not ship.enableDefense():
 		return False
@@ -42,7 +42,7 @@ def run():
 		return False
 
 
-	print '<-- mission New Frontiers - Raw Materials (7 of 7)\n'
+	print '<-- mission New Frontiers - Asnendanne (7 of 7)\n'
 	return True
 
 if __name__ == '__main__':

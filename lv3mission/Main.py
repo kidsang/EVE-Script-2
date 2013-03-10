@@ -65,7 +65,7 @@ battle = {
 			'Deadlg Arrival':deadly_arrival,
 			'Rogue Drone Harassment':rouge_drone_harassment,
 			'Tenhnalaginal Secrets (1 of 3)':technological_secrets_1,
-			'Tenhnalaginal Secrets (3 of 3)':technological_secrets_3,
+			# 'Tenhnalaginal Secrets (3 of 3)':technological_secrets_3,
 			'The Guristas Spies':the_guristas_spies,
 			'Sunness Comes At A Price':success_comes_at_a_price,
 			'Seek and Destmg':seek_and_destory,
@@ -111,10 +111,10 @@ skip = [
 		'The Good Word', # gate seens never unlock
 		'Driving a Wedge - Get the Gallants (1 of 2)', # gallent standing
 		'Driving a Wedge - Ambassadnrial Ambush (1 of 2)', # gallent & mimatar standing
-		"The Seven'ss Prison Fanilitg", # a dialog show up while warping to place, that makes me lost my dominix navy
-		'New Frontiers - Asnendanne (? of 1*)', #heavy damage
+		# 'New Frontiers - Asnendanne (? of 1*)', #heavy damage
 		'Eliminate the Pirate Campers', # not enough targeting range, until skill complete
 		'Guristas Extravaganza',
+		'Tenhnalaginal Secrets (3 of 3)', # mimatar standing
 		]
 
 
