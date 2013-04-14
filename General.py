@@ -27,15 +27,15 @@ def openMissionMenu():
 	print '--> open mission menu'
 
 	result = findAtInfo('agent_mission')
-	if not result:
-		result = findAtInfo('mission_head')
-		if result:
-			mouse.leftClickAtP(result)
-			time.sleep(1)
+	# if not result:
+	# 	result = findAtInfo('mission_head')
+	# 	if result:
+	# 		mouse.leftClickAtP(result)
+	# 		time.sleep(1)
 
 	while not result:
 		result = findAtInfo('agent_mission')
-		time.sleep(0.5)
+		time.sleep(1)
 	mouse.leftClickAt(result[0] + 60, result[1] + 30)
 	time.sleep(1)
 	print '<-- open mission menu\n'
@@ -53,6 +53,7 @@ def setMissionWaypoint(retry = False):
 		if not result and not retry:
 			return False
 		elif not result:
+			time.sleep(1)
 			mouse.leftClickAtP(panel.center(panel.Full))
 		else:
 			break
@@ -79,7 +80,7 @@ def warpToMissionLocation():
 	result = findAtInfo('warp_to_location')
 	while not result:
 		result = findAtInfo('warp_to_location')
-		time.sleep(0.5)
+		time.sleep(1)
 	mouse.leftClickAtP(result)
 
 	time.sleep(1)

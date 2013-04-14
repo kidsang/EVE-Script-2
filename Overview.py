@@ -121,6 +121,19 @@ def lockEnemy(wait = 5):
 	print '<-- lock enemy'
 	return True
 
+def handleDangerousAction():
+	result = findAtFull('dangerous')
+	if result:
+		mouse.moveToP(result)
+		result = None
+		while not result:
+			result = findAtFull('x')
+		mouse.leftClickAtP(result)
+		key.pressEx(sc.Unlock)
+		return True
+	else:
+		return False
+
 def activateAccelerationGate():
 	switchTo('pilot')
 	general.enterStarMap()
@@ -145,6 +158,7 @@ def activateAccelerationGate():
 		if result:
 			mouse.leftClickAtP(result)
 			mouse.moveTo(result[0], result[1] - 200)
+		handleDangerousAction();
 		key.pressEx(sc.Activate)
 		time.sleep(1)
 
@@ -275,4 +289,4 @@ def seekAndDestory():
 
 if __name__ == '__main__':
 	mouse.leftClickAtP(panel.center(panel.Full))
-	seekAndDestory()
+	handleDangerousAction()

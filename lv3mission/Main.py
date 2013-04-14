@@ -111,7 +111,7 @@ skip = [
 		'The Good Word', # gate seens never unlock
 		'Driving a Wedge - Get the Gallants (1 of 2)', # gallent standing
 		'Driving a Wedge - Ambassadnrial Ambush (1 of 2)', # gallent & mimatar standing
-		# 'New Frontiers - Asnendanne (? of 1*)', #heavy damage
+		'New Frontiers - Asnendanne (? of 1*)', #heavy damage
 		'Eliminate the Pirate Campers', # not enough targeting range, until skill complete
 		'Guristas Extravaganza',
 		'Tenhnalaginal Secrets (3 of 3)', # mimatar standing
