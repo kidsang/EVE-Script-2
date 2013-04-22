@@ -17,7 +17,7 @@ def autopilot():
         print 'try to find target stargate or station'
         finded = ''
         result = None
-        for retry in range(7):
+        for retry in range(3):
             mouse.moveToP(panel.center(panel.Full))
             print 'try: ' + str(retry + 1)
             result = find(panel.Overview, 'target_station', 0.2)
@@ -46,18 +46,19 @@ def autopilot():
             key.pressEx(sc.Activate)
             print 'wait until entering station'
             begin = time.time()
-            while not find(panel.ProgressBar, 'entering_station', 0.1) and time.time() - begin < 80:
+            result = find(panel.ProgressBar, 'entering_station', 0.1) 
+            while not result and time.time() - begin < 80:
+                result = find(panel.ProgressBar, 'entering_station', 0.1) 
                 time.sleep(0.1)
-            print 'entering station'
-            time.sleep(4)
-            print '<-- autopilot\n'
-            return True
+            if result:
+                print 'entering station'
+                time.sleep(4)
+                print '<-- autopilot\n'
+                return True
 
         if finded == 'gate':
             print 'jump...'
             mouse.leftClickAtP(result)
-            key.pressEx(sc.Warp)
-            time.sleep(1)
             key.pressEx(sc.Activate)
             print 'wait until entering space'
             begin = time.time()

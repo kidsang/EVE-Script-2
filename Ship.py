@@ -8,9 +8,10 @@ from Finder import *
 
 def enableDefense():
 	print '--> enable defense'
-	key.pressEx(sc.LowSlot1)
-	key.pressEx(sc.LowSlot2)
-	key.pressEx(sc.LowSlot3)
+	# key.pressEx(sc.LowSlot1)
+	# key.pressEx(sc.LowSlot2)
+	# key.pressEx(sc.LowSlot3)
+	key.pressEx(sc.AllLow)
 	print '<-- enable defense\n'
 	return True
 

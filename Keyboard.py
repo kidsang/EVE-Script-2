@@ -4,20 +4,8 @@ import re
 import string
 import time
 
+innercd = 0.1
 cd = 0.5
-
-def down(vkcode):
-    api.keybd_event(vkcode, 0, 0, 0)
-    time.sleep(cd)
-
-def up(vkcode):
-    api.keybd_event(vkcode, 0, con.KEYEVENTF_KEYUP, 0)
-    time.sleep(cd)
-
-def press(vkcode):
-    api.keybd_event(vkcode, 0, 0, 0)
-    api.keybd_event(vkcode, 0, con.KEYEVENTF_KEYUP, 0)
-    time.sleep(cd)
 
 # vk map
 vkmap = {}
@@ -26,7 +14,7 @@ for i in range(65, 91):
     vkmap[string.lowercase[i - 65]] = i
 # 0 - 9
 for i in range(48, 58):
-    vkmap[i - 48] = i
+    vkmap[str(i - 48)] = i
 # f1 - f12
 for i in range(112, 124):
     vkmap['f' + str(i - 111)] = i
@@ -42,6 +30,8 @@ vkmap['alt'] = 18
 # other
 vkmap['space'] = 32
 
+vkstrpat = re.compile(r'\s*\+\s*')
+
 def parseInput(input):
     '''
     parse input string to vk codes
@@ -53,32 +43,34 @@ def parseInput(input):
     input: 'f1'
     return 112
     '''
-    pat = re.compile(r'\s*\+\s*')
-    tokens = pat.split(input.strip())
-    vkcodes = []
-    for tk in tokens:
-        vkcodes.append(vkmap[tk])
+    global vkstrpat
+    tokens = vkstrpat.split(input.strip())
+    vkcodes = [vkmap[tk] for tk in tokens]
     return vkcodes
 
-def downEx(input):
-    vkcodes = parseInput(input)
+def down(vkcodes):
     for code in vkcodes:
-        down(code)
+        api.keybd_event(code, 0, 0, 0)
+        time.sleep(innercd)
+    time.sleep(cd)
+
+def up(vkcodes):
+    for code in vkcodes:
+        api.keybd_event(code, 0, con.KEYEVENTF_KEYUP, 0)
+        time.sleep(innercd)
+    time.sleep(cd)
+
+def downEx(input):
+    down(parseInput(input))
 
 def upEx(input):
-    vkcodes = parseInput(input)
-    for code in vkcodes:
-        up(code)
+    up(parseInput(input))
 
 def pressEx(input):
     vkcodes = parseInput(input)
-    for code in vkcodes:
-        down(code)
-    for code in vkcodes:
-        up(code)
-
-def test():
-    pass
+    down(vkcodes)
+    up(vkcodes)
 
 if __name__ == '__main__':
-    test()
+    print parseInput('ctrl+1')
+    pass

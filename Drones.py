@@ -8,14 +8,6 @@ from Finder import *
 
 def _launch(group):
 
-	# result = None
-	# while not result:
-	# 	mouse.moveToP(panel.center(panel.Drones))
-	# 	mouse.wheel(-100)
-	# 	mouse.moveToP(panel.center(panel.Full))
-	# 	result = findAtDrones('local_space')
-	# mouse.leftClickAtP(result)
-
 	result = None
 	while not result:
 		mouse.moveToP(panel.center(panel.Drones))
@@ -88,11 +80,6 @@ def back():
 		key.pressEx(sc.DronesReturn)
 		time.sleep(0.2)
 
-	# result = None
-	# while not result:
-	# 	result = findAtDrones('local_space')
-	# mouse.leftClickAtP(result)
-
 	print '<-- drones return\n'
 	return True
 
@@ -103,7 +90,7 @@ def engage():
 
 	while not findAtDrones('fighting'):
 		key.pressEx(sc.DronesEngage)
-		time.sleep(0.2)
+		time.sleep(0.5)
 
 	print '<-- drones engaging\n'
 	return True

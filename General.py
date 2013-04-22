@@ -27,11 +27,6 @@ def openMissionMenu():
 	print '--> open mission menu'
 
 	result = findAtInfo('agent_mission')
-	# if not result:
-	# 	result = findAtInfo('mission_head')
-	# 	if result:
-	# 		mouse.leftClickAtP(result)
-	# 		time.sleep(1)
 
 	while not result:
 		result = findAtInfo('agent_mission')

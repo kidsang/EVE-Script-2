@@ -41,7 +41,8 @@ def repair():
 	result = None
 	while not result:
 		result = findAtFull('repair_facilities')
-		time.sleep(0.2)
+		time.sleep(0.5)
+	time.sleep(0.5)
 	mouse.leftClickAt(result[0], result[1] + 70)
 	key.pressEx('ctrl+a')
 
@@ -59,9 +60,12 @@ def repair():
 	if result:
 		mouse.leftClickAtP(result)
 		print 'repairing...'
-		result = findAtFull('ok')
-		if not result:
-			result = findAtFull('yes')
+		result = None
+		while not result:
+			time.sleep(0.2)
+			result = findAtFull('ok')
+			if not result:
+				result = findAtFull('yes')
 		mouse.leftClickAtP(result)
 		result = findAtFull('repair_facilities')
 		mouse.moveToP(result)
