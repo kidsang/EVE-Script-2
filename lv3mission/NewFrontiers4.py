@@ -20,22 +20,24 @@ def run():
 	if not ship.enableDefense():
 		return False
 
-	# if not overview.switchTo('battle'):
-	# 	return False
+	if not overview.switchTo('battle'):
+		return False
 
-	# if not overview.lockTarget('l', 10):
-	# 	return False
+	if not overview.lockTarget('l', 10):
+		return False
+
+	ship.enableAfterburn()
+
+	ship.approach()
 
 	if not drones.launchSmall():
 		return False
 
-	ship.enableAfterburn()
+	ship.fireOnce()
+
+	drones.engage()
 	
 	overview.seekAndDestory()
-
-	# ship.approach()
-
-	# drones.engage()
 
 	while not overview.pickCargo():
 		time.sleep(5)
