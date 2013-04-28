@@ -5,6 +5,7 @@ import ImageChops
 import cv
 import cv2
 import pytesser.pytesser as tesser
+import numpy
 
 def capture(left, top, right, bottom):
     img = ImageGrab.grab((left, top, right, bottom))
@@ -17,10 +18,8 @@ def findImg(left, top, right, bottom, targetSource, threshould = 0.03):
     threshould: range from 0.0 to 1.0,
                 smaller threshould means more accurate
     '''
-    temppath = 'img/temp.bmp'
     img = capture(left, top, right, bottom)
-    img.save(temppath)
-    source = cv2.imread(temppath)
+    source = numpy.array(img)
     target = cv2.imread(targetSource)
     result = cv2.matchTemplate(source, target, cv.CV_TM_SQDIFF_NORMED)
     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
