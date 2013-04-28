@@ -18,14 +18,13 @@ def autopilot():
         finded = ''
         result = None
         for retry in range(3):
-            mouse.moveToP(panel.center(panel.Full))
             print 'try: ' + str(retry + 1)
-            result = find(panel.Overview, 'target_station', 0.2)
+            result = findAtOverview('target_station', 0.2)
             if result:
                 print 'station finded'
                 finded = 'station'
                 break
-            result = find(panel.Overview, 'target_star_gate', 0.2)
+            result = findAtOverview('target_star_gate', 0.2)
             if result:
                 print 'stargate finded'
                 finded = 'gate'
@@ -34,6 +33,7 @@ def autopilot():
             y += random.random() * 200 - 100
             mouse.leftClickAt(x, y)
             mouse.wheel(-12)
+            mouse.moveToP(panel.center(panel.Full))
 
         if finded == '':
             print "can't find any waypoint"
@@ -46,9 +46,9 @@ def autopilot():
             key.pressEx(sc.Activate)
             print 'wait until entering station'
             begin = time.time()
-            result = find(panel.ProgressBar, 'entering_station', 0.1) 
+            result = findAtProgressBar('entering_station', 0.1) 
             while not result and time.time() - begin < 80:
-                result = find(panel.ProgressBar, 'entering_station', 0.1) 
+                result = findAtProgressBar('entering_station', 0.1) 
                 time.sleep(0.1)
             if result:
                 print 'entering station'
@@ -62,10 +62,13 @@ def autopilot():
             key.pressEx(sc.Activate)
             print 'wait until entering space'
             begin = time.time()
-            while not find(panel.ProgressBar, 'entering_space', 0.1) and time.time() - begin < 80:
+            result = findAtProgressBar('entering_space', 0.1)
+            while not result  and time.time() - begin < 80:
+                result = findAtProgressBar('entering_space', 0.1)
                 time.sleep(0.1)
-            print 'entering space'
-            time.sleep(4)
+            if result:
+                print 'entering space'
+                time.sleep(3)
 
 
 if __name__ == '__main__':

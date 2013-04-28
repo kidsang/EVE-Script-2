@@ -20,7 +20,7 @@ def findImg(left, top, right, bottom, targetSource, threshould = 0.03):
     '''
     img = capture(left, top, right, bottom)
     source = numpy.array(img)
-    target = cv2.imread(targetSource)
+    target = numpy.array(Image.open(targetSource).convert('RGB'))
     result = cv2.matchTemplate(source, target, cv.CV_TM_SQDIFF_NORMED)
     minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(result)
     if minVal <= threshould:
@@ -65,7 +65,6 @@ def extractTextR(rect, scale = 2):
     return extractText(rect[0], rect[1], rect[2], rect[3], scale)
 
 def test():
-    # print colorAt(200, 100)
     pass
 
 if __name__ == '__main__':
